@@ -1,9 +1,10 @@
-# Spring Boot 2.2.5 Oauth2 Authorization Server and Resource Server
+# Spring Boot 2.2.5 Cloud Discovery Server and its Client
 
-This repository contains the Oauth2 authorization server and resource server implementation. This example is continuation of the [Oauth2 Autherization and Resource Servers](https://github.com/developerhelperhub/spring-boot2-authorization-and-resource-servers/) example. I would suggest, please look previous implementation before looking this source code. In the previous example, I used same authentication server as resource, but users and clients information are loaded from memory. In this example, I am using to load users and clients from database. I am using mongoDB database to store information in application. 
+This repository contains the spring boot cloud discovery and its client implementation. This example is continuation of the [Oauth2 Autherization and Resource Servers](https://github.com/developerhelperhub/spring-boot2-oauth2-clients-users-from-db) example. I would suggest, please look previous implementation before looking this source code. 
 
 This repository contains four maven project. 
 * my-cloud-service: Its main module, it contains the dependecy management of our application.
+* my-cloud-discovery-service: This is server for the discovery service
 * identity-service: This authentication server service. 
 * client-application-service: This client application for authentication server.
 * resource-service: This resource server to provide the resource services for our application.
