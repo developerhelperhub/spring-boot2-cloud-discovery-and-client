@@ -214,3 +214,79 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
 ```
+
+### Changes in the resource-service
+We need to add some code to make the client service under the discovery service.
+
+Add the below dependency in the ```pom.xml```
+```xml
+<dependency>
+     <groupId>org.springframework.cloud</groupId>
+     <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+<dependency>
+     <groupId>org.springframework.cloud</groupId>
+     <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+</dependency>
+```
+
+Add the ```@EnableDiscoveryClient``` annotation in the main class to enable the discovery client for the resource service.
+```java
+package com.developerhelperhub.ms.id;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class ResourceServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ResourceServiceApplication.class, args);
+	}
+}
+```
+
+Added the eureka configuration in the YAML file, here we need to specify the username and password of eureka endpoint.
+```yml
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:discoverypass@localhost:8761/eureka/
+```
+
+### Changes on identity-service
+We need to add the ```my_cloud_discovery_id``` resource server id in the client registration in the ```IdentityServiceApplication``` main class. 
+
+```java
+client.setClientId("my-cloud-identity");
+		client.setClientSecret("VkZpzzKa3uMq4vqg");
+
+		client.setResourceIds(
+				new HashSet<String>(Arrays.asList("identity_id", "resource_id", "my_cloud_discovery_id")));
+
+		client.addGrantedAuthority("ADMIN");
+
+		client.setSecretRequired(true);
+		client.setScoped(true);
+		client.setScope(new HashSet<String>(Arrays.asList("user_info")));
+		client.setAuthorizedGrantTypes(
+				new HashSet<String>(Arrays.asList("authorization_code", "password", "refresh_token")));
+		client.setRegisteredRedirectUri(new HashSet<String>(Arrays.asList("http://localhost:8082/login/oauth2/code/")));
+		client.setAccessTokenValiditySeconds(43199);
+		client.setRefreshTokenValiditySeconds(83199);
+		client.setAutoApprove(true);
+
+		client.create();
+```
+
+### Testing the implementation
+
+* We can look the (example)[https://github.com/developerhelperhub/spring-boot2-oauth2-clients-users-from-db#to-generate-the-tokens-with-grant-type-password] how to generate the token.
+* ```localhost:8761/clients/applications``` end point can be used to get the list of applications registered under the discovery service.
+* ```http://localhost:8761/``` end point can be used to view the eureka dashboard. We need to enter the username and password to view the dashboard. The username and password are given below.
+
+### Reference
+* (Eureka Example)[https://spring.io/guides/gs/service-registration-and-discovery/]
+* (Basic Authentication Entry Endpoint)[https://o7planning.org/en/11649/secure-spring-boot-restful-service-using-basic-authentication]
