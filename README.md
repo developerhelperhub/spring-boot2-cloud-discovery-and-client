@@ -283,10 +283,10 @@ client.setClientId("my-cloud-identity");
 
 ### Testing the implementation
 
-* We can look the (example)[https://github.com/developerhelperhub/spring-boot2-oauth2-clients-users-from-db#to-generate-the-tokens-with-grant-type-password] how to generate the token.
+* We can look the [example](https://github.com/developerhelperhub/spring-boot2-oauth2-clients-users-from-db#to-generate-the-tokens-with-grant-type-password) how to generate the token.
 * ```localhost:8761/clients/applications``` end point can be used to get the list of applications registered under the discovery service.
 * ```http://localhost:8761/``` end point can be used to view the eureka dashboard. We need to enter the username and password to view the dashboard. The username and password are given below.
 
 ### Reference
-* (Eureka Example)[https://spring.io/guides/gs/service-registration-and-discovery/]
-* (Basic Authentication Entry Endpoint)[https://o7planning.org/en/11649/secure-spring-boot-restful-service-using-basic-authentication]
+* [Eureka Example](https://spring.io/guides/gs/service-registration-and-discovery/)
+* [Basic Authentication Entry Endpoint](https://o7planning.org/en/11649/secure-spring-boot-restful-service-using-basic-authentication)
